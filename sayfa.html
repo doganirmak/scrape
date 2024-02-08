@@ -1,0 +1,1478 @@
+
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+
+<head><title>
+
+	Takasbank TEFAS | Fon Karşılaştırma
+
+</title><link href="Styles/Site_tr.css?v=300" rel="stylesheet" type="text/css" /><link href="Styles/Style_v4.css?v=20210604" rel="stylesheet" type="text/css" /><link rel="shortcut&#32;icon" href="Images/favicon.ico" type="image/vnd.microsoft.icon" /><link href="Styles/tingle.css?v=300" rel="stylesheet" /><link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.13.2/themes/smoothness/jquery-ui.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highcharts/9.0.1/css/highcharts.min.css" integrity="sha512-hGGTPscQ5tEG/4LWx4oXiF2SWumn6Q3sA8MlZQYynN1Qs1Gvm/8rI4j+Cq8oTUsLcsf+ovh0Nuap5HzZjYv92Q==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    
+
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"></script>
+
+
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/highcharts/9.0.1/highcharts.min.js" integrity="sha512-EIJ4kNprq9ImB7okK8Wy5o4frtpx1zERP1A3ZrLXr5nOGEWhVViC1XVuzJ8GGG89sJ/bKbtw+6TsQlul9/WcEg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/highcharts/9.0.1/highcharts-more.min.js" integrity="sha512-JcwfO5LLuUqJHmkkY7GW0/mqvsGoijbWwXZZ2VLny5+b62LVIignOomo0gAZHYSchIVHJ2iw+hypcSlBCOO1OA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/highcharts/9.0.1/highcharts-3d.min.js" integrity="sha512-XBqzGli+6PJJJzJInNVxoplcK1E5XrWFWQM3Y7m5rH6E+bXkPfZ2Fn2YrL4qasMGtjXWgT0/hl/kbigxao9/2Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+
+    
+
+    
+
+    
+
+
+
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.13.2/themes/smoothness/jquery-ui.css" />
+
+    <link href="Styles/Datatables.css" rel="stylesheet" />
+
+
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+
+    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.10.23/b-1.6.5/b-colvis-1.6.5/b-html5-1.6.5/b-print-1.6.5/fc-3.3.2/fh-3.1.7/datatables.min.js"></script>
+
+    
+
+    
+
+    <script type="text/javascript"  src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+
+    <script type="text/javascript" src="Scripts/DataTablesNet/GeneralUtils.js?v=310"></script>
+
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+
+
+
+
+    <script type="text/javascript" src="Scripts/TefasPages/FonKarsilastirmaScript.js?v=310"   ></script>
+
+    <script type="text/javascript" src="Scripts/TefasDataTables/ComparisonFundReturns.js?v=310" ></script>
+
+    <script type="text/javascript" src="Scripts/TefasDataTables/ComparisonManagementFees.js?v=310" ></script>
+
+    <script type="text/javascript" src="Scripts/TefasDataTables/ComparisonFundSizes.js?v=310" ></script>
+
+
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            $.fn.dataTable.ext.errMode = 'none';
+
+
+
+            SetCheckBoxSelectAllBehaviour("DropDownCheckBoxPeriods");
+
+
+
+
+
+
+
+            $(function () {
+
+                $("[id$='ButtonSearchDates']").on('click', function (e) {
+
+
+
+                    $("[id$='ButtonSearchDates']").blur();
+
+                    var isValid = ValidateForm("ValidationFundReturnDates");
+
+                    if (!isValid) {
+
+                        e.preventDefault();
+
+                    }
+
+                    else {
+
+                        RefreshDataTables();
+
+                    }
+
+                    return false;
+
+                });
+
+            });
+
+
+
+            $(function () {
+
+                $("[id$='ButtonSearchPeriods']").on('click', function (e) {
+
+                    $("[id$='ButtonSearchPeriods']").blur();
+
+                        RefreshDataTables();       
+
+                    return false;
+
+                });
+
+            });
+
+
+
+
+
+            $(function () {
+
+                $("[id$='ButtonSizeSearchDates']").on('click', function (e) {
+
+                    $("[id$='ButtonSizeSearchDates']").blur();
+
+                    var isValid = ValidateForm("ValidationFundSizeDates");
+
+                    if (!isValid) {
+
+                        e.preventDefault();
+
+                    }
+
+                    else {
+
+                        RefreshDataTables();
+
+                    }
+
+                    return false;
+
+                });
+
+            });
+
+
+
+            
+
+            SetColumnVisibility();
+
+            comparisonValues = getControlValues();
+
+            tefasButtons = createTefasTableButtons();
+
+            CreateFundReturns();
+
+            CreateManagementFees();
+
+            CreateFundSizes();
+
+
+
+            RedirectOnRowOnClick('#table_fund_returns');
+
+            RedirectOnRowOnClick('#table_management_fees');
+
+            RedirectOnRowOnClick('#table_fund_sizes');
+
+
+
+            //var table = $('#table_fund_returns').DataTable();
+
+            //$('#table_fund_returns tbody').on('click', 'tr', function () {
+
+            //    var data = table.row(this).data();
+
+            //    window.location.href = '/FonAnaliz.aspx?FonKod=' + data.FONKODU ; //relative to domain
+
+            //});
+
+
+
+
+
+
+
+        });  
+
+    </script>
+
+
+
+    <style type="text/css">
+
+    .fund-type-panel {
+
+        position:relative;
+
+        width:162px;
+
+        height:26px;
+
+        background:#EFEFEF;
+
+        z-index:2;
+
+    }
+
+    .period-hide {
+
+        position:absolute;
+
+        top:-20px;left:-20px;
+
+        z-index:-1;
+
+    }
+
+    
+
+    </style>
+
+        <meta name="description" content="Takasbank&#39;tan&#32;Türkiye&#39;ye&#32;Büyük&#32;Fon&#32;Ailesi.&#32;Türkiye&#32;Elektronik&#32;Fon&#32;Dağıtım&#32;Platformu&#39;nda&#32;(TEFAS)&#32;yatırımcılar&#32;performans&#32;ve&#32;risk&#32;tercihine&#32;göre&#32;seçim&#32;yapıyor." /><meta name="keywords" content="takasbank,&#32;fon,&#32;turkey,&#32;tefas,&#32;portal,&#32;analiz,&#32;karşılaştırma,&#32;veri,&#32;grafik,&#32;tefdp,&#32;dağıtım,&#32;türkiye" />
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            $('#site_menu > ul > li').bind('mouseover', openSubMenu);
+
+            $('#site_menu > ul > li').bind('mouseout', closeSubMenu);
+
+
+
+            //$(".video").colorbox({ inline: true, iframe: true, width: 831, height: 560 });
+
+            //$(".slider").colorbox({ rel: 'slider', slideshow: true, slideshowSpeed: 7500 });
+
+            //            if (typeof ChartInit != 'function') {
+
+            //                $(".slider").colorbox({ rel: 'slider', slideshow: true, slideshowSpeed: 7500 });
+
+            //            }
+
+
+
+        });
+
+        function openSubMenu() {
+
+            $(this).find('ul').css('visibility', 'visible');
+
+        };
+
+
+
+        function closeSubMenu() {
+
+            $(this).find('ul').css('visibility', 'hidden');
+
+        };
+
+
+
+    </script>
+
+    <script type="text/javascript">
+
+        (function (i, s, o, g, r, a, m) {
+
+            i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+
+                (i[r].q = i[r].q || []).push(arguments)
+
+            }, i[r].l = 1 * new Date(); a = s.createElement(o),
+
+                m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+
+
+        ga('create', 'UA-73053324-1', 'auto');
+
+        ga('send', 'pageview');
+
+
+
+        ga('create', 'UA-58418600-1', 'auto', 'firstView');
+
+        ga('firstView.send', 'pageview');
+
+
+
+    </script>
+
+
+
+
+
+    
+
+<link href="/WebResource.axd?d=Wj07nNm6-3vZJ7NsT_tIjEIk0QQ0k2GpyNkHo9U732p-tBymQLF43Egbu_qSHO5_MFivdZMWkLkikNBfWBj4gJfCovI6FVqGrL81Wvzl4gigfnX3vhm2t0w5uEcNy9DkbgkcabfaQx5or2Cy88YreQ2&amp;t=637328261883426368" type="text/css" rel="stylesheet" /></head>
+
+<body>
+
+    <form method="post" action="./FonKarsilastirma.aspx" id="ctl01">
+
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="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" />
+
+
+
+
+
+<script type="text/javascript">
+
+//<![CDATA[
+
+function dd_chk_DropDownCheckBoxPeriods(){ __doPostBack('ctl00$MainContent$DropDownCheckBoxPeriods','') }//]]>
+
+</script>
+
+<link rel='stylesheet' type='text/css' href='/WebResource.axd?d=6lv24yUiBk_EZ6ovwplrJ5bdosDet0r8mYsADj3kF8EHvgkhXkU1Nod5MPAI5s0HT3-sUDonmrwK18kDFpaIAISKOd3OQwZT7TEdm7BuDEK6eKRbl0O4djyzWaanc3KnomSNgmpVIovkI5uDQsb0vGG9Vf9g59OBdu7jyr3QJ8g1&t=635787938020000000' />
+
+<script type="text/javascript">
+
+//<![CDATA[
+
+function dd_chk_MainContent_CBtoHide(){ __doPostBack('ctl00$MainContent$CBtoHide','') }//]]>
+
+</script>
+
+
+
+<script src="/ScriptResource.axd?d=T4W3h12FWyWhKbC2VqMGGWRs3YrLeoe6JJQyrGEddjTS2nJzWwGzK9kZvwukoNzG2eD1gqIN29Y7wbRtDln76r5WLUw1SyPzzIcw4MgkCH1an06NCt6-HrnoL3XXjeojxBz4TPyyO57WZ3S42PHKQA2&amp;t=7c776dc1" type="text/javascript"></script>
+
+<script type="text/javascript">
+
+//<![CDATA[
+
+if (typeof(Sys) === 'undefined') throw new Error('ASP.NET Ajax client-side framework failed to load.');
+
+//]]>
+
+</script>
+
+
+
+<script src="Scripts/TefasPages/TabScripts.js" type="text/javascript"></script>
+
+<script src="Scripts/TefasPages/UpdatePanelScripts.js" type="text/javascript"></script>
+
+<script src="Scripts/jquery.colorbox.js" type="text/javascript"></script>
+
+<script src="/WebResource.axd?d=ULN5bBB37uwx-kiYLE6xeHA_8N_LBGhcQVl8Efg9sWCYSMqq_b6wuJmo46MOcGyrTERj8nDV2gTLgTvAz04A964Jn2zKPBN_ydJncBr9FbHZNwxY4LKuP2F5QqT0MBnmljnq4WldKBbOTKhJHvM-G9U_j8K54FX4x2vmNAsBqv3NpOOQaerd82A1KMBg581K0&amp;t=635787938020000000" type="text/javascript"></script>
+
+<script src="/ScriptResource.axd?d=YGqybZ-Uk8ALT73x9DkcQgud-WlzFhQ9CW5_c_EBijKKwn2mPbaFfIXq2_zy2xgO9TU41Fs5uWb50VeJnQ2qKuslYIq6WgBp6-Zi8JB_j0pkgyDbV9BvfjMy2t0NmaNB82DA0vXBqsspMn09ZXb4ZQ2&amp;t=7c776dc1" type="text/javascript"></script>
+
+<script src="/ScriptResource.axd?d=ipQgt7iQblMOfi2d0LTZjecItTTlKFCJcMv3zpj64i-6f3wnSOZUl9f-wugSg5A6Z4P6jO1uGYf9utCTIGW3wKI9QzjyLAp4f4euKez5xnUtpJcfHECl6oD_0UyFFIzELZbB9I6SFTRlHteOcvuVpA2&amp;t=7c776dc1" type="text/javascript"></script>
+
+<script src="/ScriptResource.axd?d=gYiGN0TC1p9Q4cjIzu-DSLMwG1-QZfybbI2lEfbvZYvxS3DB291bIGVCAOx6yY5TY1e2d11B_r1cQp7zZCBORrTQcFR7zUuPKNkxBDIfYpQYIQnbIjbpS5pu637uHFpmcXAQkO-qF0OfHsr9LxoDvA2&amp;t=7c776dc1" type="text/javascript"></script>
+
+<script src="/ScriptResource.axd?d=Ez7sksM83Ed1xOtzrKIEw7jmO9oDbUdT5rhW-vXwNhRWr0wjaL-hhagWpvjPYDkck_LH3IsYRqaSxS_3g7af_OZd6XCV5M7s-vHRQ5XA-fGn97lJgWTBbHQLdC4syvqK24qi1Dh9p4JrnknmxUeUFw2&amp;t=7c776dc1" type="text/javascript"></script>
+
+<script src="/ScriptResource.axd?d=aIl74E1fiv2hEfXwiuJdqft-NFNjtu4b4PWzU9yd2yZo56NXLzr8TY0Ye8JZw9Tcj4YC3wwsdpoiv_UTUL_7v4Q1I-ZHg9gjG8l5XKGiilmLlZf_LNhTsOj3ksBG_eHg8d4a8BISpCXR557A0o4nsQ2&amp;t=7c776dc1" type="text/javascript"></script>
+
+<script src="/ScriptResource.axd?d=uIMSDFA_wDlEXS2Ul1KlHUaSYgtfd3yaitr-WcWAr7Z44nleH0k-Ju8hdGt6eiGwUuRQaW16Dc9P2khsaLJ_Z0zSX1iW-5KYCeP4D1Fl_Z9c6Ot8NLweLDVlkA1NvGMfyh6BSmfMQH2FPs8_7mYpmLqKyAC9QytmCXKZVrMpbKo1&amp;t=7c776dc1" type="text/javascript"></script>
+
+<script src="/ScriptResource.axd?d=U0rgXs9HynrpZtSKaz97uJHcbhxFskt7OcAUjyXhTOj3TLebsryEMspsONZe-oeOQ3Vg8bQvktGUdc4ImeeKmpo0L989co7TLAfCajG5g8LaominfSMqQXAKzD2JxcizEEZKCAhN8PD5xDuLNWjFJvvpMCq1BZ5klVxIONkzkkk1&amp;t=7c776dc1" type="text/javascript"></script>
+
+<script src="/ScriptResource.axd?d=IJo7abiuGDcwTVS0cU6VJZmkqRcGVcrX2BQ8sdhs2rYmWq9tgzAVwZV-AVuPUkOin3ojkW9TMiUbvaLnAl1xrvbUmIdcMp7w-ydyxrUVMLd-yIxzwyIGdWrowzLaL_atPmwuhZ4zk1mswAkULGW_UA2&amp;t=7c776dc1" type="text/javascript"></script>
+
+<script src="/ScriptResource.axd?d=0phbGb_rPGUZbihzCdfdZSmBjr9KKFovIA6G-bEo2vNMRioQWpZNHi0ATFHIlxWofjboB18EqbuDZsmRiRl4yAnEbp1SRqerTZfYv24K82Q75z0nqldPEOzv9jrv52QgZ3QW-dWZJTS5Ij2RNl6Eiw2&amp;t=7c776dc1" type="text/javascript"></script>
+
+<script src="/ScriptResource.axd?d=OxjNfnxFvtcvS2vAFYaejVgd0A-2xuspMNkpxeWqSZA3Azpg_virlWpzH0tQgUccG-enyCmbcMHYLq1q8d7eNMck639rnmFW_UFpNxg9Boj5N-dly-kbFFFFxlQLZrIqqvTZvOnhbJrUHN8V5klzZAgsj9zazxc86v56rT6MxCY1&amp;t=7c776dc1" type="text/javascript"></script>
+
+<input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="925503C9" />
+
+<input type="hidden" name="__VIEWSTATEENCRYPTED" id="__VIEWSTATEENCRYPTED" value="" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="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" />
+
+        <div class="page">
+
+            <div id="top">
+
+                <ul>
+
+
+
+                    <li>
+
+                        <a id="HyperLink22" class="languageen" href="https://fundturkey.com.tr/" target="_self">English</a>
+
+                    </li>
+
+                    <li>
+
+                        <a id="HyperLink13" class="dictionary" href="TerimlerSozlugu.aspx">Terimler Sözlüğü</a>
+
+                    </li>
+
+                    <li>
+
+                        <a id="HyperLink14" class="info" href="Hakkinda.aspx">TEFAS Platformu Hakkında</a>
+
+                    </li>
+
+
+
+                </ul>
+
+            </div>
+
+            <div id="header">
+
+                <div id="site_logo">
+
+                    <div style="width: 270px; display: inline-block; vertical-align: top; min-height: 50px;">
+
+                        
+
+                    </div>
+
+                    <div style="width: 700px; display: inline-block; vertical-align: top; padding-top: 18px;">
+
+
+
+                        
+
+                    </div>
+
+                    <div style="width: 600px; display: inline-block; vertical-align: bottom;">
+
+
+
+                        <img id="ImageTefasLogo" title="Türkiye&#32;Elektronik&#32;Fon&#32;Alım&#32;Satım&#32;Platformu&#32;-&#32;TEFAS" src="Images/tefas_web_site_logo_TR_Bilgilendirme.png" alt="Tefas" height="100" style="position: relative; top: 0px; left: 0px;" /><label style="position: relative;"></label>
+
+                        <a id="HyperLink23" href="FonKarsilastirma.aspx?type=emk"><img id="ImageBefasLogo" title="Bireysel&#32;Emeklilik&#32;Fon&#32;Alım&#32;Satım&#32;Platformu" src="Images/befas_web_site_logo_TR.png" alt="Befas" height="100" style="position: relative; top: 0px; left: 40px;" /><label style="position: relative;"></label>
+
+                        </a>
+
+                        
+
+                        <span id="LabelTestMessage"></span>
+
+                    </div>
+
+                    <div style="width: 390px; display: inline-block; vertical-align: top;">
+
+                        <div style="width: 380px; display: inline-block; text-align: right; vertical-align: bottom;">
+
+                            <a id="HyperLink21" href="http://www.takasbank.com.tr"><img id="ImageLogo" title="Takasbank" src="Images/takasbank-logo.png" alt="Takasbank" height="65" style="vertical-align: bottom;" /></a>
+
+
+
+                        </div>
+
+
+
+                        <a id="HyperLinkVideo" class="video&#32;export-button&#32;top-button">TEFAS Tanıtım Filmi</a>&nbsp;
+
+                    <a id="HyperLinkInfo" class="slider&#32;export-button&#32;top-button&#32;HyperLinkInfo">TEFAS Nedir?</a>&nbsp;
+
+                    </div>
+
+                </div>
+
+                <div id="site_menu">
+
+                    <ul>
+
+                        <li>
+
+                            <a id="HyperLink7" href="Default.aspx">Ana Sayfa</a>
+
+                        </li>
+
+                        <li>
+
+                            <a id="HyperLink8" href="FonAnaliz.aspx">Fon Detaylı Analiz</a>
+
+                        </li>
+
+                        <li>
+
+                            <a id="HyperLink9" href="FonKarsilastirma.aspx">Fon Karşılaştırma</a>
+
+                        </li>
+
+                        
+
+                        <li>
+
+                            <a id="HyperLink10" href="TarihselVeriler.aspx">Tarihsel Veriler</a>
+
+                        </li>
+
+                        <li><a>TEFAS İstatistikleri</a>
+
+                            <ul>
+
+                                <li>
+
+                                    <a id="HyperLink1" href="IstatistikiRaporlar/IslemYapanKurum.aspx">İşlem Yapan Kurum Sayıları</a></li>
+
+                                <li>
+
+                                    <a id="HyperLink2" href="IstatistikiRaporlar/FonSayisi.aspx">Fon Türü Bazında İşlem Gören Fon Sayısı</a></li>
+
+                                <li>
+
+                                    <a id="HyperLink3" href="IstatistikiRaporlar/ToplamIslemHacmi.aspx">Toplam İşlem Hacmi Raporu</a></li>
+
+                                <li>
+
+                                    <a id="HyperLink4" href="IstatistikiRaporlar/UyeBazliIslemHacmi.aspx">Üye Bazlı İşlem Hacmi Raporu</a></li>
+
+                                <li>
+
+                                    <a id="HyperLink5" href="IstatistikiRaporlar/FonBazliIslemHacmi.aspx">Fon Bazlı İşlem Hacmi Raporu</a></li>
+
+                                <li>
+
+                                    <a id="HyperLink6" href="IstatistikiRaporlar/StokBakiyeleriPiyasaDegeri.aspx">Fon Türü Bazında Üye Stok Bakiyeleri Raporu</a></li>
+
+                            </ul>
+
+                        </li>
+
+                         <li><a>BEFAS İstatistikleri</a>
+
+                            <ul>
+
+                                <li>
+
+                                    <a id="HyperLink24" href="IstatistikiRaporlar/Befas/FonSayisi.aspx">Fon Türü Bazında İşlem Gören Fon Sayısı</a></li>
+
+                                <li>
+
+                                    <a id="HyperLink25" href="IstatistikiRaporlar/Befas/ToplamIslemHacmi.aspx">Toplam İşlem Hacmi Raporu</a></li>
+
+                                <li>
+
+                                    <a id="HyperLink26" href="IstatistikiRaporlar/Befas/UyeBazliIslemHacmi.aspx">Üye Bazlı İşlem Hacmi Raporu</a></li>
+
+                                <li>
+
+                                    <a id="HyperLink27" href="IstatistikiRaporlar/Befas/FonBazliIslemHacmi.aspx">Fon Bazlı İşlem Hacmi Raporu</a></li>
+
+                            </ul>
+
+                        </li>
+
+                        <li>
+
+                            <a id="HyperLink11" href="Hakkinda.aspx">Platform</a>
+
+                        </li>
+
+                       
+
+                    </ul>
+
+                </div>
+
+            </div>
+
+
+
+            <div id="content">
+
+                
+
+    
+
+    <div id="MainContent_UpdatePanel1">
+
+	
+
+            <h1 class="fund-comparison">Fon Karşılaştırma</h1>
+
+            <div  class="fund-main-type">
+
+                <span>Fon Tipi :</span>
+
+                <span id="RadioButtonListFundMainType" onchange="onRadioButtonValueChanged();"><input id="RadioButtonListFundMainType_0" type="radio" name="ctl00$MainContent$RadioButtonListFundMainType" value="YAT" checked="checked" /><label for="RadioButtonListFundMainType_0">Menkul Kıymet Yatırım Fonları</label><br /><input id="RadioButtonListFundMainType_1" type="radio" name="ctl00$MainContent$RadioButtonListFundMainType" value="EMK" /><label for="RadioButtonListFundMainType_1">Emeklilik Fonları</label><br /><input id="RadioButtonListFundMainType_2" type="radio" name="ctl00$MainContent$RadioButtonListFundMainType" value="BYF" /><label for="RadioButtonListFundMainType_2">Borsa Yatırım Fonları</label></span>
+
+            </div>
+
+            <span id="MainContent_LabelMessage"></span>
+
+            <div class="fund-criterias">
+
+                <table id="tableCriterias" class="criterias">
+
+		<tr>
+
+			<td id="MainContent_KurucuYAT">Kurucu</td><td id="MainContent_KurucuEMK">Kurucu</td><td id="MainContent_KurucuBYF">Kurucu</td><td id="MainContent_FonTuruEMK">Fon Türü</td><td id="MainContent_FonTuruBYF">Fon Türü</td><td id="MainContent_SemsiyeYAT">Şemsiye Fon Türü</td><td id="MainContent_GrupEMK">Fon Grubu</td><td id="MainContent_UnvanTipiYAT">Fon Unvan Tipi</td><td id="MainContent_UnvanTipiBYF">Fon Unvan Tipi</td><td id="MainContent_IslemDurumuYAT">TEFAS İşlem Durumu</td><td id="MainContent_IslemDurumuEMK">BEFAS İşlem Durumu</td>
+
+		</tr><tr>
+
+			<td><select name="ctl00$MainContent$DropDownListFounderYAT" id="DropDownListFounderYAT" class="fund-criterias-ddl" onchange="onDropDownValueChanged();">
+
+				<option value="Tümü">Tümü</option>
+
+				<option value="AKP">AK PORTFÖY YÖNETİMİ A.Ş.</option>
+
+				<option value="MUP">AKTİF PORTFÖY YÖNETİMİ A.Ş.</option>
+
+				<option value="PGA">ALBARAKA PORTFÖY YÖNETİMİ A.Ş.</option>
+
+				<option value="ABO">ALLBATROSS PORTFÖY YÖNETİMİ A.Ş.</option>
+
+				<option value="APY">ATA PORTFÖY YÖNETİMİ A.Ş.</option>
+
+				<option value="ALA">ATLAS PORTFÖY YÖNETİMİ A.Ş.</option>
+
+				<option value="TLR">AURA PORTFÖY YÖNETİMİ A.Ş.</option>
+
+				<option value="GPO">AZİMUT PORTFÖY YÖNETİMİ A.Ş.</option>
+
+				<option value="PA1">A1 PORTFÖY YÖNETİMİ A.Ş.</option>
+
+				<option value="BVP">BV PORTFÖY YÖNETİMİ A.Ş.</option>
+
+				<option value="EPY">DENİZ PORTFÖY YÖNETİMİ A.Ş</option>
+
+				<option value="FIP">FİBA PORTFÖY YÖNETİMİ A.Ş.</option>
+
+				<option value="GRP">FONERİA PORTFÖY YÖNETİMİ A.Ş.</option>
+
+				<option value="GPY">GARANTİ PORTFÖY YÖNETİMİ A.Ş.</option>
+
+				<option value="EUP">GLOBAL MD PORTFÖY YÖNETİMİ A.Ş.</option>
+
+				<option value="HFP">HEDEF PORTFÖY YÖNETİMİ A.Ş</option>
+
+				<option value="HPY">HSBC PORTFÖY YÖNETİMİ A.Ş.</option>
+
+				<option value="ICP">ICBC TURKEY PORTFÖY YÖNETİMİ A.Ş.</option>
+
+				<option value="GEP">INVEO PORTFÖY YÖNETİMİ A.Ş.</option>
+
+				<option value="ISY">İSTANBUL PORTFÖY YÖNETİMİ A.Ş.</option>
+
+				<option value="ISP">İŞ PORTFÖY YÖNETİMİ A.Ş.</option>
+
+				<option value="KRP">KARE PORTFÖY YÖNETİMİ A.Ş.</option>
+
+				<option value="KTP">KUVEYT TÜRK PORTFÖY YÖNETİMİ A.Ş.</option>
+
+				<option value="LPO">LOGOS PORTFÖY YÖNETİMİ A.Ş.</option>
+
+				<option value="MAP">MAQASID GAYRİMENKUL VE GİRİŞİM SERMAYESİ PORTFÖY YÖNETİMİ A.Ş.</option>
+
+				<option value="MPY">MARMARA CAPİTAL PORTFÖY YÖNETİMİ A.Ş.</option>
+
+				<option value="MSP">MEKSA PORTFÖY YÖNETİMİ A.Ş.</option>
+
+				<option value="VVP">NEO PORTFÖY YÖNETIMI A.Ş.</option>
+
+				<option value="NRL">NUROL PORTFÖY YÖNETİMİ A.Ş.</option>
+
+				<option value="OMP">OSMANLI PORTFÖY YÖNETİMİ A.Ş.</option>
+
+				<option value="OPO">OYAK PORTFÖY YÖNETİMİ A.Ş.</option>
+
+				<option value="PER">PERFORM PORTFÖY YÖNETİMİ A.Ş.</option>
+
+				<option value="PHP">PHİLLİP PORTFÖY YÖNETİMİ A.Ş.</option>
+
+				<option value="IEP">QINVEST PORTFOY YÖNETİMİ A.Ş.</option>
+
+				<option value="FPY">QNB FİNANS PORTFÖY YÖNETİMİ A.Ş.</option>
+
+				<option value="PIE">RE-PIE PORTFÖY YÖNETİMİ A.Ş.</option>
+
+				<option value="ROP">ROTA PORTFÖY YÖNETİMİ A.Ş.</option>
+
+				<option value="STE">STATECH PORTFÖY YÖNETİMİ A.Ş.</option>
+
+				<option value="STP">STRATEJİ PORTFÖY YÖNETİMİ A.Ş.</option>
+
+				<option value="TCR">TACİRLER PORTFÖY YÖNETİMİ A.Ş.</option>
+
+				<option value="TEY">TEB PORTFÖY YÖNETİMİ A.Ş.</option>
+
+				<option value="SKP">TERA PORTFÖY YÖNETİMİ A.Ş.</option>
+
+				<option value="KIG">TRIVE PORTFÖY YÖNETİMİ A.Ş.</option>
+
+				<option value="UNP">ÜNLÜ PORTFÖY YÖNETİMİ A.Ş.</option>
+
+				<option value="KCP">YAPI KREDİ PORTFÖY YÖNETİMİ A.Ş.</option>
+
+				<option value="ZPY">ZİRAAT PORTFÖY YÖNETİMİ A.Ş.</option>
+
+
+
+			</select></td><td><select name="ctl00$MainContent$DropDownListFounderEMK" id="DropDownListFounderEMK" class="fund-criterias-ddl" onchange="onDropDownValueChanged();">
+
+				<option value="Tümü">Tümü</option>
+
+				<option value="AHS">AGESA HAYAT VE EMEKLİLİK A.Ş.</option>
+
+				<option value="HYS">ALLIANZ YAŞAM VE EMEKLİLİK A.Ş.</option>
+
+				<option value="KHM">ALLİANZ HAYAT VE EMEKLİLİK A.Ş.</option>
+
+				<option value="AEM">ANADOLU HAYAT EMEKLİLİK A.Ş.</option>
+
+				<option value="AHY">AXA HAYAT VE EMEKLİLİK A.Ş.</option>
+
+				<option value="ASH">BEREKET EMEKLİLİK VE HAYAT A.Ş.</option>
+
+				<option value="FRE">BNP PARİBAS CARDİF EMEKLİLİK A.Ş.</option>
+
+				<option value="GEM">GARANTİ EMEKLİLİK VE HAYAT A.Ş.</option>
+
+				<option value="FBH">HDI FİBA EMEKLİLİK VE HAYAT A.Ş.</option>
+
+				<option value="KEM">KATILIM EMEKLİLİK VE HAYAT A.Ş.</option>
+
+				<option value="DEN">METLİFE EMEKLİLİK VE HAYAT A.Ş.</option>
+
+				<option value="IEM">NN HAYAT VE EMEKLİLİK A.Ş.</option>
+
+				<option value="FEM">QNB SAĞLIK HAYAT SİGORTA VE EMEKLİLİK A.Ş.</option>
+
+				<option value="VEM">TÜRKİYE HAYAT VE EMEKLİLİK A.Ş.</option>
+
+				<option value="ANM">VİENNALİFE EMEKLİLİK VE HAYAT A.Ş.</option>
+
+
+
+			</select></td><td><select name="ctl00$MainContent$DropDownListFounderBYF" id="DropDownListFounderBYF" class="fund-criterias-ddl" onchange="onDropDownValueChanged();">
+
+				<option value="Tümü">Tümü</option>
+
+				<option value="AKP">AK PORTFÖY YÖNETİMİ A.Ş.</option>
+
+				<option value="OMP">OSMANLI PORTFÖY YÖNETİMİ A.Ş.</option>
+
+				<option value="FPY">QNB FİNANS PORTFÖY YÖNETİMİ A.Ş.</option>
+
+				<option value="ZPY">ZİRAAT PORTFÖY YÖNETİMİ A.Ş.</option>
+
+
+
+			</select></td><td><select name="ctl00$MainContent$DropDownListFundTypeEMK" id="DropDownListFundTypeEMK" class="fund-criterias-ddl" onchange="onDropDownValueChanged();">
+
+				<option value="Tümü">Tümü</option>
+
+				<option value="26">Altın Fonu</option>
+
+				<option value="167">Altın Katılım Fonu</option>
+
+				<option value="157">Başlangıç Fonu</option>
+
+				<option value="158">Başlangıç Katılım Fonu</option>
+
+				<option value="150">Borçlanma Araçları Fonu</option>
+
+				<option value="151">Değişken Fon</option>
+
+				<option value="38">Devlet Katkısı Fonu</option>
+
+				<option value="165">Dış Borçlanma Araçları Fonu</option>
+
+				<option value="112">Endeks Fon</option>
+
+				<option value="125">Fon Sepeti Fonu</option>
+
+				<option value="116">Hisse Senedi Fonu</option>
+
+				<option value="18">Kamu Borçlanma Araçları Fonu</option>
+
+				<option value="163">Kamu Kira Sertifikası Fonu</option>
+
+				<option value="30">Kamu Yabancı Para (Döviz) Cinsinden Borçlanma Araç</option>
+
+				<option value="113">Karma Fon</option>
+
+				<option value="168">Katılım Değişken Fon</option>
+
+				<option value="152">Katılım Fonu</option>
+
+				<option value="156">Katılım Katkı Fonu</option>
+
+				<option value="41">Katılım Standart Fon</option>
+
+				<option value="27">Kıymetli Madenler</option>
+
+				<option value="162">OKS Katılım Standart Fon</option>
+
+				<option value="161">OKS Standart Fon</option>
+
+				<option value="19">Özel Sektör Borçlanma Araçları Fonu</option>
+
+				<option value="154">Para Piyasası Fonu</option>
+
+				<option value="40">Standart Fon</option>
+
+				<option value="155">Yaşam Döngüsü/Hedef Fon</option>
+
+
+
+			</select></td><td><select name="ctl00$MainContent$DropDownListFundTypeBYF" id="DropDownListFundTypeBYF" class="fund-criterias-ddl" onchange="onDropDownValueChanged();">
+
+				<option value="Tümü">Tümü</option>
+
+				<option value="37">Altın Fonu</option>
+
+				<option value="42">Gümüş Fonu</option>
+
+				<option value="120">Hisse Senedi Fonu</option>
+
+				<option value="2">Hisse Senedi Yoğun</option>
+
+				<option value="14">Yabancı Fon</option>
+
+
+
+			</select></td><td><select name="ctl00$MainContent$DropDownListUmbrellaFundTypeYAT" id="DropDownListUmbrellaFundTypeYAT" class="fund-criterias-ddl" onchange="onDropDownValueChanged();">
+
+				<option value="Tümü">Tümü</option>
+
+				<option value="100">Borçlanma Araçları Şemsiye Fonu</option>
+
+				<option value="101">Değişken Şemsiye Fonu</option>
+
+				<option value="102">Fon Sepeti Şemsiye Fonu</option>
+
+				<option value="103">Garantili Şemsiye Fonu</option>
+
+				<option value="104">Hisse Senedi Şemsiye Fonu</option>
+
+				<option value="110">Karma Şemsiye Fonu</option>
+
+				<option value="114">Katılım Şemsiye Fonu</option>
+
+				<option value="105">Kıymetli Madenler Şemsiye Fonu</option>
+
+				<option value="107">Para Piyasası Şemsiye Fonu</option>
+
+				<option value="108">Serbest Şemsiye Fonu</option>
+
+
+
+			</select></td><td><select name="ctl00$MainContent$DropDownListFundGroupEMK" id="DropDownListFundGroupEMK" class="fund-criterias-ddl" onchange="onDropDownValueChanged();">
+
+				<option value="Tümü">Tümü</option>
+
+				<option value="80">Diğer</option>
+
+				<option value="82">Fon Sepeti Fonu</option>
+
+				<option value="75">Gelir Amaçlı Fon</option>
+
+				<option value="79">İhtisaslaşmış Fon</option>
+
+				<option value="81">Katkı Fonu</option>
+
+				<option value="78">Kıymetli Madenler Fonu</option>
+
+				<option value="77">Para Piyasası Fonu</option>
+
+				<option value="83">Sürdürülebilirlik Fonları</option>
+
+
+
+			</select></td><td><select name="ctl00$MainContent$DropDownListFundTypeExplanationYAT" id="DropDownListFundTypeExplanationYAT" class="fund-criterias-ddl" onchange="onDropDownValueChanged();">
+
+				<option value="">Tümü</option>
+
+				<option value="Agresif&#32;Değişken">Agresif Değişken</option>
+
+				<option value="Alternatif">Alternatif</option>
+
+				<option value="Altın">Altın</option>
+
+				<option value="Borçlanma&#32;Araçları">Borçlanma Araçları</option>
+
+				<option value="Çalışanlarına&#32;Yönelik">Çalışanlarına Yönelik</option>
+
+				<option value="Çoklu&#32;Varlık">Çoklu Varlık</option>
+
+				<option value="Değişken">Değişken</option>
+
+				<option value="Dengeli&#32;Değişken">Dengeli Değişken</option>
+
+				<option value="Diğer&#32;Fon&#32;Sepeti">Diğer Fon Sepeti</option>
+
+				<option value="Döviz">Döviz</option>
+
+				<option value="Döviz&#32;Cinsinden&#32;İhraç&#32;(Dolar)">Döviz Cinsinden İhraç (Dolar)</option>
+
+				<option value="Döviz&#32;Cinsinden&#32;İhraç&#32;(Euro)">Döviz Cinsinden İhraç (Euro)</option>
+
+				<option value="Emtia">Emtia</option>
+
+				<option value="Endeks">Endeks</option>
+
+				<option value="Endeks&#32;Hisse&#32;Senedi">Endeks Hisse Senedi</option>
+
+				<option value="Eurobond">Eurobond</option>
+
+				<option value="Fon&#32;Sepeti">Fon Sepeti</option>
+
+				<option value="Garantili">Garantili</option>
+
+				<option value="Gümüş">Gümüş</option>
+
+				<option value="Hisse&#32;Senedi">Hisse Senedi</option>
+
+				<option value="Hisse&#32;Senedi&#32;Yoğun">Hisse Senedi Yoğun</option>
+
+				<option value="İştirak">İştirak</option>
+
+				<option value="Karma">Karma</option>
+
+				<option value="Katılım">Katılım</option>
+
+				<option value="Kısa&#32;Vadeli">Kısa Vadeli</option>
+
+				<option value="Kısa&#32;Vadeli&#32;Borçlanma&#32;Araçları">Kısa Vadeli Borçlanma Araçları</option>
+
+				<option value="Kıymetli&#32;Madenler">Kıymetli Madenler</option>
+
+				<option value="Kira&#32;Sertifikaları">Kira Sertifikaları</option>
+
+				<option value="Koruma&#32;Amaçlı">Koruma Amaçlı</option>
+
+				<option value="Mutlak&#32;Getiri&#32;Hedefli">Mutlak Getiri Hedefli</option>
+
+				<option value="Orta&#32;Vadeli">Orta Vadeli</option>
+
+				<option value="Özel">Özel</option>
+
+				<option value="Para&#32;Piyasası">Para Piyasası</option>
+
+				<option value="Sektör">Sektör</option>
+
+				<option value="Serbest">Serbest</option>
+
+				<option value="Sürdürülebilirlik&#32;Fonları">Sürdürülebilirlik Fonları</option>
+
+				<option value="Uzun&#32;Vadeli">Uzun Vadeli</option>
+
+				<option value="Uzun&#32;Vadeli&#32;Borçlanma&#32;Araçları">Uzun Vadeli Borçlanma Araçları</option>
+
+				<option value="Yabancı">Yabancı</option>
+
+				<option value="Yabancı&#32;Fon&#32;Sepeti">Yabancı Fon Sepeti</option>
+
+
+
+			</select></td><td><select name="ctl00$MainContent$DropDownListFundTypeExplanationBYF" id="DropDownListFundTypeExplanationBYF" class="fund-criterias-ddl" onchange="onDropDownValueChanged();">
+
+				<option value="">Tümü</option>
+
+				<option value="Altın">Altın</option>
+
+				<option value="Borçlanma&#32;Araçları">Borçlanma Araçları</option>
+
+				<option value="Döviz">Döviz</option>
+
+				<option value="Endeks">Endeks</option>
+
+				<option value="Endeks&#32;Hisse&#32;Senedi">Endeks Hisse Senedi</option>
+
+				<option value="Gümüş">Gümüş</option>
+
+				<option value="Hisse&#32;Senedi">Hisse Senedi</option>
+
+				<option value="Hisse&#32;Senedi&#32;Yoğun">Hisse Senedi Yoğun</option>
+
+				<option value="Katılım">Katılım</option>
+
+				<option value="Sürdürülebilirlik&#32;Fonları">Sürdürülebilirlik Fonları</option>
+
+				<option value="Yabancı">Yabancı</option>
+
+
+
+			</select></td><td><select name="ctl00$MainContent$DropDownListProcessStatusYAT" id="DropDownListProcessStatusYAT" class="fund-criterias-ddl" onchange="onDropDownValueChanged();">
+
+				<option value="Tümü">Tümü</option>
+
+				<option selected="selected" value="1">İşlem Gören</option>
+
+				<option value="0">İşlem Görmeyen</option>
+
+
+
+			</select></td><td><select name="ctl00$MainContent$DropDownListProcessStatusEMK" id="DropDownListProcessStatusEMK" class="fund-criterias-ddl" onchange="onDropDownValueChanged();">
+
+				<option value="Tümü">Tümü</option>
+
+				<option selected="selected" value="1">İşlem Gören</option>
+
+				<option value="0">İşlem Görmeyen</option>
+
+
+
+			</select></td>
+
+		</tr>
+
+	</table>
+
+
+
+            </div>
+
+            <input type="hidden" name="ctl00$MainContent$HCalismaTipi" id="HCalismaTipi" value="2" />
+
+        
+
+</div>
+
+
+
+                   <input type="hidden" name="ctl00$MainContent$hdnSelectedTab" id="hdnSelectedTab" value="0" />
+
+            <div id="MainContent_tabs">   
+
+                <ul>
+
+                    <li onclick="CreateFundReturns();"><a href="#tabs-1">Getiri Bazlı</a></li>
+
+                    <li  onclick="CreateManagementFees();"><a id="secondTabText" href="#tabs-2">Yönetim Ücreti Bazlı</a></li> 
+
+                    <li onclick="CreateFundSizes();"><a href="#tabs-3">Büyüklük Bazlı</a></li> 
+
+                </ul> 
+
+
+
+                <div id="tabs-1" style="overflow-x: scroll" >
+
+                    <div class="dates">
+
+                        <span>Tarih Aralığı</span>
+
+                        <input name="ctl00$MainContent$TextBoxStartDate" type="text" value="Başlangıç" id="TextBoxStartDate" class="date-textbox" />
+
+                        
+
+                        <input type="hidden" name="ctl00$MainContent$TextBoxWatermarkExtenderStartDate_ClientState" id="MainContent_TextBoxWatermarkExtenderStartDate_ClientState" />
+
+                        &nbsp;
+
+                        &nbsp;
+
+                        &nbsp;
+
+                        -
+
+                        <input name="ctl00$MainContent$TextBoxEndDate" type="text" value="Bitiş" id="TextBoxEndDate" class="date-textbox" />
+
+                        
+
+                        <input type="hidden" name="ctl00$MainContent$TextBoxWatermarkExtenderEndDate_ClientState" id="MainContent_TextBoxWatermarkExtenderEndDate_ClientState" />
+
+                        &nbsp;
+
+                        &nbsp;
+
+                        &nbsp;
+
+                        
+
+                        <input type="submit" name="ctl00$MainContent$ButtonSearchDates" value="Karşılaştır" onclick="RefreshComparisonFundReturn(&#39;1&#39;);WebForm_DoPostBackWithOptions(new&#32;WebForm_PostBackOptions(&quot;ctl00$MainContent$ButtonSearchDates&quot;,&#32;&quot;&quot;,&#32;true,&#32;&quot;ValidationFundReturnDates&quot;,&#32;&quot;&quot;,&#32;false,&#32;false))" id="ButtonSearchDates" class="fund-compare-button" /><br />
+
+                        
+
+                    </div>
+
+                    <div class="periods">
+
+                        <div id="DropDownCheckBoxPeriods_sl" class="period-ddl&#32;dd_chk_select" style="display:inline-block;">
+
+	<div id="caption">
+
+		Dönemler
+
+	</div><div id="DropDownCheckBoxPeriods_dv" class="dd_chk_drop" style="display:none;">
+
+		<div id="checks">
+
+			<span id="DropDownCheckBoxPeriods"><input id="DropDownCheckBoxPeriods_0" type="checkbox" name="ctl00$MainContent$DropDownCheckBoxPeriods$DropDownCheckBoxPeriods_0" checked="checked" value="Tümü" /><label for="DropDownCheckBoxPeriods_0">Tümü</label><br /><input id="DropDownCheckBoxPeriods_1" type="checkbox" name="ctl00$MainContent$DropDownCheckBoxPeriods$DropDownCheckBoxPeriods_1" checked="checked" value="1A" /><label for="DropDownCheckBoxPeriods_1">1 Ay</label><br /><input id="DropDownCheckBoxPeriods_2" type="checkbox" name="ctl00$MainContent$DropDownCheckBoxPeriods$DropDownCheckBoxPeriods_2" checked="checked" value="3A" /><label for="DropDownCheckBoxPeriods_2">3 Ay</label><br /><input id="DropDownCheckBoxPeriods_3" type="checkbox" name="ctl00$MainContent$DropDownCheckBoxPeriods$DropDownCheckBoxPeriods_3" checked="checked" value="6A" /><label for="DropDownCheckBoxPeriods_3">6 Ay</label><br /><input id="DropDownCheckBoxPeriods_4" type="checkbox" name="ctl00$MainContent$DropDownCheckBoxPeriods$DropDownCheckBoxPeriods_4" checked="checked" value="YB" /><label for="DropDownCheckBoxPeriods_4">Yılbaşından İtibaren</label><br /><input id="DropDownCheckBoxPeriods_5" type="checkbox" name="ctl00$MainContent$DropDownCheckBoxPeriods$DropDownCheckBoxPeriods_5" checked="checked" value="1Y" /><label for="DropDownCheckBoxPeriods_5">1 Yıl</label><br /><input id="DropDownCheckBoxPeriods_6" type="checkbox" name="ctl00$MainContent$DropDownCheckBoxPeriods$DropDownCheckBoxPeriods_6" checked="checked" value="3Y" /><label for="DropDownCheckBoxPeriods_6">3 Yıl</label><br /><input id="DropDownCheckBoxPeriods_7" type="checkbox" name="ctl00$MainContent$DropDownCheckBoxPeriods$DropDownCheckBoxPeriods_7" checked="checked" value="5Y" /><label for="DropDownCheckBoxPeriods_7">5 Yıl</label></span>
+
+		</div>
+
+	</div>
+
+</div>
+
+                        <input type="submit" name="ctl00$MainContent$ButtonSearchPeriods" value="Karşılaştır" onclick="RefreshComparisonFundReturn(&#39;2&#39;);" id="ButtonSearchPeriods" class="fund-compare-button" /><br />
+
+                        <span id="MainContent_LabelPeriodMessage"></span>
+
+                    </div>
+
+
+
+
+
+                    
+
+                    <table id="table_fund_returns" class="display" width="100%" ></table>
+
+                </div>
+
+
+
+                
+
+                
+
+                <div id="tabs-2" >
+
+                    <table id="table_management_fees" class="display" width="100%"></table>
+
+                </div>
+
+
+
+                
+
+                
+
+                <div id="tabs-3">
+
+                         <div class="dates">
+
+                        <span>Tarih Aralığı</span>
+
+                        <input name="ctl00$MainContent$TextBoxSizeStartDate" type="text" value="09.01.2024" id="TextBoxSizeStartDate" class="date-textbox" />
+
+                        
+
+                        <input type="hidden" name="ctl00$MainContent$TextBoxWatermarkExtenderSizeStartDate_ClientState" id="MainContent_TextBoxWatermarkExtenderSizeStartDate_ClientState" />
+
+                        &nbsp;
+
+                        &nbsp;
+
+                        &nbsp;
+
+                        -
+
+                        <input name="ctl00$MainContent$TextBoxSizeEndDate" type="text" value="08.02.2024" id="TextBoxSizeEndDate" class="date-textbox" />
+
+                        
+
+                        <input type="hidden" name="ctl00$MainContent$TextBoxWatermarkExtenderSizeEndDate_ClientState" id="MainContent_TextBoxWatermarkExtenderSizeEndDate_ClientState" />
+
+                        &nbsp;
+
+                        &nbsp;
+
+                        &nbsp;
+
+                        
+
+                        <input type="submit" name="ctl00$MainContent$ButtonSizeSearchDates" value="Karşılaştır" onclick="javascript:WebForm_DoPostBackWithOptions(new&#32;WebForm_PostBackOptions(&quot;ctl00$MainContent$ButtonSizeSearchDates&quot;,&#32;&quot;&quot;,&#32;true,&#32;&quot;ValidationFundSizeDates&quot;,&#32;&quot;&quot;,&#32;false,&#32;false))" id="ButtonSizeSearchDates" class="fund-compare-button" /><br />
+
+                        
+
+                    </div>
+
+
+
+                    <table id="table_fund_sizes" class="display"></table>
+
+                </div>
+
+            </div>
+
+
+
+
+
+            
+
+            <div id="MainContent_CBtoHide_sl" class="displayNone&#32;dd_chk_select" style="display:inline-block;">
+
+	<div id="caption">
+
+		Seçiniz
+
+	</div><div id="MainContent_CBtoHide_dv" class="dd_chk_drop" style="display:none;">
+
+		<div id="checks">
+
+			<span style="display:block;"><input type='checkbox' name='MainContent_CBtoHide_sll'><label for='MainContent_CBtoHide_sll'>Tüm Türler</label></span>
+
+		</div>
+
+	</div>
+
+</div> 
+
+                           
+
+
+
+            </div>
+
+        </div>
+
+        <div id="footer">
+
+            <div class="menu">
+
+                <h1 class="footer-title">
+
+                    <img id="Image1" title="Türkiye&#32;Elektronik&#32;Fon&#32;Alım&#32;Satım&#32;Platformu&#32;-&#32;TEFAS" src="Images/tefas_web_site_logo_TR_Bilgilendirme.png" alt="Tefas" height="70" />&nbsp;<label style="position: relative; top: -37px;"></label></h1>
+
+                <ul>
+
+                    <li>
+
+                        <a id="HyperLink15" href="FonAnaliz.aspx">Fon Detaylı Analiz</a></li>
+
+                    <li>
+
+                        <a id="HyperLink16" href="FonKarsilastirma.aspx">Fon Karşılaştırma</a></li>
+
+                    
+
+                    <li>
+
+                        <a id="HyperLink17" href="TarihselVeriler.aspx">Tarihsel Veriler</a></li>
+
+                </ul>
+
+                <ul>
+
+                    <li><a href="https://www.takasbank.com.tr/tr/kaynaklar/tefas-uyesi-kurumlar" target="_blank" rel="noopener noreferrer">TEFAS Üyeleri</a></li>
+
+                    <li><a href="https://www.takasbank.com.tr/tr/kaynaklar/tefas-yatirim-fonlari" target="_blank" rel="noopener noreferrer">İşlem Gören Yatırım Fonları</a></li>
+
+                </ul>
+
+                <ul>
+
+                    <li>
+
+                        <a id="HyperLink18" href="Hakkinda.aspx">Platform Hakkında</a></li>
+
+                    <li>
+
+                        <a id="HyperLink19" href="TerimlerSozlugu.aspx">Terimler Sözlüğü</a></li>
+
+                    <li>
+
+                        <a id="HyperLink20" href="Iletisim.aspx">İletişim</a></li>
+
+                </ul>
+
+                <div style="text-align: justify">
+
+                    <b>Çekince Bildirimi :</b> Bu sitede yer alan içeriklerin bir kısmı Takasbank’tan, bir kısmı ise diğer kaynaklardan sağlanarak 
+
+                Takasbank tarafından yayınlanmaktadır. Burada yer alan yatırım bilgi, yorum ve tavsiyeleri yatırım danışmanlığı kapsamında 
+
+                değildir. Bu nedenle, sadece burada yer alan bilgilere dayanılarak yatırım kararı verilmesi beklentilerinize uygun sonuçlar 
+
+                doğurmayabilir. Takasbank, bu sitede yer alan bilgilerin; doğru, yeterli, eksiksiz ve güncel olduğunu garanti etmemektedir. 
+
+                Sitedeki fonlara ait tarihsel veri, analiz ve raporlar, ilgili fonların Takasbank Veri Tabanı’nda mevcut unvan, kategori ve 
+
+                türler dikkate alınarak sunulmakta olup geçmiş dönem/ dönemlerdeki unvan, kategori ve türleri açısından farklılık gösterebilir. 
+
+                Analizler geçmişe dönük  tür değişimleri dikkate alınmadan, mevcut türler baz alınarak oluşturulmaktadır.  Bu sitede yer alan 
+
+                bilgileri kullananlar; bilgilerdeki virüs, eksiklik ve/veya hatalardan dolayı Takasbank’ın sorumlu olmadığını kabul ederler. Bu 
+
+                siteden bağlantı yapılarak ulaşılan diğer sitelerdeki bilgiler ilgili kuruluşlar tarafından yayınlanmakta olup, Takasbank’ı 
+
+                bağlamamaktadır.  Bunun yanı sıra kullanıcı, yapılan geliştirmelerde ortaya çıkabilecek teknik aksaklık ve hatalardan dolayı 
+
+                oluşabilecek sorunların Takasbank’ın sorumluluğunda olmadığını kabul eder.
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div id="bottom">
+
+            <span>© 2015 - Takasbank | TEFAS</span>
+
+        </div>
+
+
+
+
+
+        
+
+    
+
+
+
+<script type="text/javascript">
+
+//<![CDATA[
+
+window.DropDownCheckBoxPeriods = new DropDownScript('DropDownCheckBoxPeriods','_dv','_sl',dd_chk_DropDownCheckBoxPeriods, false, false, false); window.DropDownCheckBoxPeriods.init();window.MainContent_CBtoHide = new DropDownScript('MainContent_CBtoHide','_dv','_sl',dd_chk_MainContent_CBtoHide, false, false, true); window.MainContent_CBtoHide.init();Sys.Application.add_init(function() {
+
+    $create(Sys.Extended.UI.CalendarBehavior, {"button":$get("TextBoxStartDate"),"format":"dd.MM.yyyy","id":"MainContent_CalendarExtenderStart"}, null, null, $get("TextBoxStartDate"));
+
+});
+
+Sys.Application.add_init(function() {
+
+    $create(Sys.Extended.UI.TextBoxWatermarkBehavior, {"ClientStateFieldID":"MainContent_TextBoxWatermarkExtenderStartDate_ClientState","WatermarkText":"Başlangıç","id":"MainContent_TextBoxWatermarkExtenderStartDate"}, null, null, $get("TextBoxStartDate"));
+
+});
+
+Sys.Application.add_init(function() {
+
+    $create(Sys.Extended.UI.CalendarBehavior, {"button":$get("TextBoxEndDate"),"format":"dd.MM.yyyy","id":"MainContent_CalendarExtenderEnd"}, null, null, $get("TextBoxEndDate"));
+
+});
+
+Sys.Application.add_init(function() {
+
+    $create(Sys.Extended.UI.TextBoxWatermarkBehavior, {"ClientStateFieldID":"MainContent_TextBoxWatermarkExtenderEndDate_ClientState","WatermarkText":"Bitiş","id":"MainContent_TextBoxWatermarkExtenderEndDate"}, null, null, $get("TextBoxEndDate"));
+
+});
+
+Sys.Application.add_init(function() {
+
+    $create(Sys.Extended.UI.CalendarBehavior, {"button":$get("TextBoxSizeStartDate"),"format":"dd.MM.yyyy","id":"MainContent_CalendarExtenderSizeStart"}, null, null, $get("TextBoxSizeStartDate"));
+
+});
+
+Sys.Application.add_init(function() {
+
+    $create(Sys.Extended.UI.TextBoxWatermarkBehavior, {"ClientStateFieldID":"MainContent_TextBoxWatermarkExtenderSizeStartDate_ClientState","WatermarkText":"Başlangıç","id":"MainContent_TextBoxWatermarkExtenderSizeStartDate"}, null, null, $get("TextBoxSizeStartDate"));
+
+});
+
+Sys.Application.add_init(function() {
+
+    $create(Sys.Extended.UI.CalendarBehavior, {"button":$get("TextBoxSizeEndDate"),"format":"dd.MM.yyyy","id":"MainContent_CalendarExtenderSizeEnd"}, null, null, $get("TextBoxSizeEndDate"));
+
+});
+
+Sys.Application.add_init(function() {
+
+    $create(Sys.Extended.UI.TextBoxWatermarkBehavior, {"ClientStateFieldID":"MainContent_TextBoxWatermarkExtenderSizeEndDate_ClientState","WatermarkText":"Bitiş","id":"MainContent_TextBoxWatermarkExtenderSizeEndDate"}, null, null, $get("TextBoxSizeEndDate"));
+
+});
+
+//]]>
+
+</script>
+
+</form>
+
+    <script type="text/javascript">
+
+        /* <![CDATA[ */
+
+        var google_conversion_id = 929720793;
+
+        var google_custom_params = window.google_tag_params;
+
+        var google_remarketing_only = true;
+
+        /* ]]> */
+
+    </script>
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tingle/0.13.2/tingle.min.js" integrity="sha256-4jpOAyubHcftmStoDfQrzFrhW/foVzpv8sxpQjWtzTg=" crossorigin="anonymous"></script>
+
+    
+
+
+
+    <script type="text/javascript">
+
+
+
+        var btn6 = document.querySelector('.video');
+
+        btn6.addEventListener('click', function () {
+
+            var modalSurprise = new tingle.modal({
+
+                onClose: function () {
+
+                    modalSurprise.destroy();
+
+                }
+
+            });
+
+            modalSurprise.setContent('<br/><br/><br/><br/><br/><br/><br/><br/><br/><iframe width="780" height="480" src="https://www.youtube.com/embed/YwvCUTZi4II" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>');
+
+            modalSurprise.open();
+
+        });
+
+
+
+        var btnInfo = document.querySelector('.HyperLinkInfo');
+
+        btnInfo.addEventListener('click', function () {
+
+            var modalSurprise = new tingle.modal({
+
+                onClose: function () {
+
+                    modalSurprise.destroy();
+
+                }
+
+            });
+
+            modalSurprise.setContent('<br/><br/><br/><br/><br/><br/><br/><br/><br/><img src="Images/TIST_Tefas_TR-2A.png" height="525" alt="">');
+
+            modalSurprise.open();
+
+        });
+
+
+
+    </script>
+
+
+
+    
+
+</body>
+
+</html>
+
